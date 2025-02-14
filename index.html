@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Spruces Cleaning - Project Details</title>
+  <style>
+    /* 
+      Updated Styling to Match Spruces Dark Green Branding
+      ----------------------------------------------------
+      The primary background is a dark green (#1A2E2F).
+      Text is mostly white (#FFFFFF).
+      Buttons and highlights use a lighter green (#A9C23F).
+    */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #1A2E2F; /* Main brand dark green */
+      color: #FFFFFF;           /* White text */
+      font-family: "Georgia", serif; /* Example of a serif font similar to the screenshot */
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1, h2, h3 {
+      margin-bottom: 10px;
+      font-weight: normal;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 2rem;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-top: 40px;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background-color: #2B4443; /* Slightly lighter green for table background */
+    }
+
+    table thead {
+      background-color: #344F4D; /* Darker row for header */
+    }
+
+    table th, table td {
+      text-align: left;
+      padding: 8px;
+      border: 1px solid #3F5C5A;
+      font-size: 0.9rem;
+    }
+
+    table th {
+      font-weight: bold;
+    }
+
+    /* Section headings */
+    .section-heading {
+      margin-top: 40px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid #A9C23F; /* brand accent color */
+    }
+
+    /* Image gallery */
+    .image-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .image-gallery img {
+      width: 200px;
+      height: auto;
+      border: 2px solid #A9C23F;
+      border-radius: 4px;
+    }
+
+    /* Questionnaire / Form */
+    .questionnaire, .agreement-section {
+      margin-top: 20px;
+      background-color: #2B4443; 
+      padding: 15px;
+      border-radius: 6px;
+      border: 1px solid #3F5C5A;
+    }
+
+    .questionnaire h2, .agreement-section h2 {
+      margin-top: 0;
+    }
+
+    .question label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    select, input[type="text"], input[type="email"], textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      color: #333;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-family: Arial, sans-serif;
+      font-size: 0.9rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #A9C23F; /* brand accent color */
+      color: #1A2E2F;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .btn:hover {
+      background-color: #92AB37;
+    }
+
+    /* Agreement text area */
+    .agreement-text {
+      background-color: #344F4D;
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      white-space: pre-line; /* preserve line breaks */
+      font-size: 0.9rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Thank you message */
+    .thank-you {
+      background-color: #344F4D;
+      border: 1px solid #3F5C5A;
+      padding: 15px;
+      border-radius: 6px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Spruces Cleaning: Project Details</h1>
+
+  <!-- Project Overview -->
+  <section>
+    <p><strong>Project Name:</strong> Coulson Operations Post Construction Cleaning</p>
+    <p><strong>Location/Site Address:</strong> 17 Clifford St, Suffolk Park Kool Beanz</p>
+    <p><strong>Property Size:</strong> 370m²</p>
+    <p><strong>Cleaner Details:</strong> [Optional: Fill in Cleaner Name, Contact Info]</p>
+    <p><strong>Cleaning Instructions:</strong> Post Construction Cleaning</p>
+    <p><strong>Cleaning Frequency:</strong> 2 Visits</p>
+    <p><strong>Cleaning Date 1:</strong> 17 February</p>
+    <p><strong>Cleaning Date 2:</strong> 3 March</p>
+    <p><strong>Number of Cleaners:</strong> 3</p>
+    <p><strong>Duration:</strong> Fix (Hours:Minutes TBD)</p>
+    <p><strong>Pay to Cleaner:</strong> $1600 (Total) <small>(50% upon documentation, 50% after confirmation)</small></p>
+  </section>
+
+  <!-- Task Table (Scope of Work) -->
+  <h2 class="section-heading">Scope of Work</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Area</th>
+        <th>Task</th>
+        <th>Notes</th>
+        <th>Tools</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Upstairs: Large Rooms</td>
+        <td>
+          - Dust all surfaces (furniture/fixtures)<br>
+          - Vacuum/mop floors (remove debris)<br>
+          - Wipe skirting boards
+        </td>
+        <td>Applies to all three large rooms on the upper level</td>
+        <td>Vacuum, Mop, Disinfectant, Cloths</td>
+      </tr>
+      <tr>
+        <td>Upstairs: Adjacent Bathrooms</td>
+        <td>
+          - Deep clean showers, toilets, sinks, tiles, mirrors<br>
+          - Sanitize high-touch surfaces
+        </td>
+        <td>Covers bathrooms adjacent to large rooms</td>
+        <td>Vacuum, Mop, Degreaser, Sponges, Glass Cleaner</td>
+      </tr>
+      <tr>
+        <td>Downstairs: Reception</td>
+        <td>
+          - Dust all surfaces<br>
+          - Vacuum/mop floors<br>
+          - Remove construction dust/debris
+        </td>
+        <td>Ensures move-in ready presentation</td>
+        <td>Disinfectant, Mop, Trash Bags, Degreaser</td>
+      </tr>
+      <tr>
+        <td>Downstairs: Corridors</td>
+        <td>- Sweep/vacuum and mop floors</td>
+        <td>Thorough cleaning of hallways</td>
+        <td>Broom, Vacuum, Mop, Trash Bags, Disinfectant</td>
+      </tr>
+      <tr>
+        <td>Downstairs: Staff Bathrooms</td>
+        <td>
+          - Deep clean showers, toilets, sinks, tiles, mirrors<br>
+          - Sanitize high-touch surfaces
+        </td>
+        <td>Applies to both staff bathrooms</td>
+        <td>Toilet Brush, Glass Cleaner, Disinfectant, Cloths</td>
+      </tr>
+      <tr>
+        <td>Downstairs: Kitchen</td>
+        <td>
+          - Clean countertops<br>
+          - Wipe cabinets (in/out)<br>
+          - Clean appliances<br>
+          - Vacuum/mop floors (remove residue)
+        </td>
+        <td>Focus on cleaning behind appliances for deep cleans</td>
+        <td>Degreaser, Disinfectant, Mop, Vacuum, Cloths, Sponges</td>
+      </tr>
+      <tr>
+        <td>Downstairs: Laundry</td>
+        <td>
+          - Dust/wipe surfaces<br>
+          - Vacuum/mop floors
+        </td>
+        <td>Focus on removing construction dust/debris</td>
+        <td>Vacuum, Mop, Disinfectant, Cloths</td>
+      </tr>
+      <tr>
+        <td>Other Tasks: Windows</td>
+        <td>
+          - Clean interior glass<br>
+          - Clean accessible exterior glass (ground-level)<br>
+          - Wipe frames/tracks
+        </td>
+        <td>Exterior limited to ground-level windows</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Other Tasks: Floors</td>
+        <td>
+          - Vacuum/mop all floors<br>
+          - Remove debris, paint splatters, adhesive
+        </td>
+        <td>All floor areas thoroughly cleaned</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Other Tasks: Cabinetry</td>
+        <td>- Clean inside/out, including shelving</td>
+        <td>Remove dust/residues</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Other Tasks: Dusting</td>
+        <td>- Full wipe-down (surfaces, skirting boards, fixtures)</td>
+        <td>Complete removal of dust/debris</td>
+        <td>-</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Additional Details -->
+  <h2 class="section-heading">Additional Details</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Field</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody style="background-color:#2B4443;">
+      <tr>
+        <td>Where to Park?</td>
+        <td>Carpark or street parking available</td>
+      </tr>
+      <tr>
+        <td>Access to Building</td>
+        <td>Onsite manager will be there</td>
+      </tr>
+      <tr>
+        <td>Keys & Security</td>
+        <td>Just Walk in (Someone can let them in)</td>
+      </tr>
+      <tr>
+        <td>Contact Onsite</td>
+        <td>Simon or Jaime – 61437426599</td>
+      </tr>
+      <tr>
+        <td>Site Induction/Photos</td>
+        <td>[Insert any induction photos or instructions]</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Image Gallery -->
+  <h2 class="section-heading">Images / Floor Plans</h2>
+  <div class="image-gallery">
+    <!-- Example usage of images:
+         Place 'image1.jpg' in the same repo (e.g. in an 'images' folder).
+         Then reference it: <img src="images/image1.jpg" alt="Floor Plan 1" /> -->
+    <img src="images/image1.jpg" alt="Floor Plan 1" />
+    <img src="images/image2.jpg" alt="Floor Plan 2" />
+    <img src="images/image3.jpg" alt="Before Cleaning Photo" />
+    <img src="images/image4.jpg" alt="Another Photo" />
+  </div>
+
+  <!-- Questionnaire -->
+  <div class="questionnaire" id="questionnaire">
+    <h2>1. Ready for this Project?</h2>
+    <p>We at Spruces believe in the 3T’s: Time, Tools, and Training—pillars of high-quality, efficient service.</p>
+
+    <div class="question">
+      <label for="time-readiness">
+        a. Time (Required)<br>
+        Have you completed the necessary course for this type of job?
+      </label>
+      <select id="time-readiness" name="timeReadiness">
+        <option value="Yes">Yes, I've completed the necessary course</option>
+        <option value="No">No, I need more information/training</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <label for="tools-readiness">
+        b. Tools (Required)<br>
+        Will you have all required tools on the day of the project?
+      </label>
+      <select id="tools-readiness" name="toolsReadiness">
+        <option value="Yes">Yes, I'm fully equipped</option>
+        <option value="No">No, I need assistance or additional tools</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <label for="training-readiness">
+        c. Training (Required)<br>
+        Do you feel you need additional training/support to complete this project effectively?
+      </label>
+      <select id="training-readiness" name="trainingReadiness">
+        <option value="No">No, I'm confident and ready</option>
+        <option value="Yes">Yes, I'd like extra support/training</option>
+      </select>
+    </div>
+    <button class="btn" id="questionnaire-continue">Continue</button>
+  </div>
+
+  <!-- Agreement Section / Form -->
+  <form 
+    class="agreement-section hidden" 
+    id="agreement-section" 
+    action="https://formspree.io/f/mgvoljgr" 
+    method="POST"
+  >
+    <h2>2. Great! You seem ready for this project.</h2>
+    <p>Let’s move on to signing the terms and agreement.</p>
+
+    <!-- Terms and Agreement Text -->
+    <h3>a. Terms and Agreement</h3>
+    <div class="agreement-text">
+      This agreement is made between:
+      Spruces Cleaning Company ("the Company")
+      and
+      Jessica ("the Cleaner")
+      
+      Project Details:
+      Coulson Operations Post Construction Cleaning
+      Location: 17 Clifford St, Suffolk Park Kool Beanz
+      Cleaning Date 1: Monday 17 February
+      Cleaning Date 2: Monday 3 March
+      Duration: One-Off
+      Compensation: $1600
+
+      Terms and Conditions:
+      1. Scope of Work
+         The Cleaner agrees to perform cleaning services as specified by the Company.
+      2. Work Standards and Conduct
+         The Cleaner shall maintain high professionalism. Substandard work must be redone at no cost.
+      3. Confidentiality
+         The Cleaner agrees to keep all client and Company information confidential.
+      4. Tools & Supplies
+         The Cleaner is responsible for own equipment, PPE, and transport.
+      5. Termination
+         Immediate termination for misconduct or failure to meet performance.
+      6. Insurance & Liability
+         The Cleaner must hold liability insurance. The Company is not responsible for negligence.
+      7. Dispute Resolution
+         Disputes resolved via negotiation.
+      8. Electronic Signature
+         By selecting "I accept", the Cleaner agrees to all terms.
+      9. Documentation
+         Before/after photos/videos for each area for client transparency.
+      10. Payment
+         50% upon submitting required documentation, 50% after client satisfaction.
+    </div>
+
+    <!-- Additional Required Fields -->
+    <label for="fullName"><strong>Full Name (for e-signature)</strong></label>
+    <input type="text" id="fullName" name="fullName" placeholder="Enter your full legal name" required />
+
+    <label for="email"><strong>Email</strong></label>
+    <input type="email" id="email" name="email" placeholder="Enter your email" required />
+
+    <label for="phone"><strong>Phone</strong></label>
+    <input type="text" id="phone" name="phone" placeholder="Enter your phone number" required />
+
+    <label for="address"><strong>Address</strong></label>
+    <input type="text" id="address" name="address" placeholder="Enter your address" required />
+
+    <label for="bankDetails"><strong>Bank Details</strong></label>
+    <input type="text" id="bankDetails" name="bankDetails" placeholder="BSB - Account Number" required />
+
+    <!-- Hidden fields to send questionnaire responses through Formspree -->
+    <input type="hidden" id="hidden-time-readiness" name="Time_Readiness" value="" />
+    <input type="hidden" id="hidden-tools-readiness" name="Tools_Readiness" value="" />
+    <input type="hidden" id="hidden-training-readiness" name="Training_Readiness" value="" />
+
+    <button class="btn" type="submit" id="btn-accept">I Accept</button>
+  </form>
+
+  <!-- Thank You Message -->
+  <div class="thank-you hidden" id="thank-you-message">
+    <h2>Thank You!</h2>
+    <p>Your form has been submitted. We will be in touch soon.</p>
+  </div>
+</div>
+
+<script>
+  // Show/Hide Agreement Section after Questionnaire
+  const questionnaireContinueBtn = document.getElementById('questionnaire-continue');
+  const agreementSection = document.getElementById('agreement-section');
+  const thankYouMessage = document.getElementById('thank-you-message');
+
+  // Dropdown fields
+  const timeReadiness = document.getElementById('time-readiness');
+  const toolsReadiness = document.getElementById('tools-readiness');
+  const trainingReadiness = document.getElementById('training-readiness');
+
+  // Hidden form fields
+  const hiddenTime = document.getElementById('hidden-time-readiness');
+  const hiddenTools = document.getElementById('hidden-tools-readiness');
+  const hiddenTraining = document.getElementById('hidden-training-readiness');
+
+  questionnaireContinueBtn.addEventListener('click', () => {
+    // Transfer the selected values to hidden fields so they can be submitted
+    hiddenTime.value = timeReadiness.value;
+    hiddenTools.value = toolsReadiness.value;
+    hiddenTraining.value = trainingReadiness.value;
+
+    // Show the agreement form
+    agreementSection.classList.remove('hidden');
+    questionnaireContinueBtn.textContent = "Saved!";
+    questionnaireContinueBtn.disabled = true;
+  });
+
+  // On form submission, display Thank You message (this is optional if you rely on Formspree's redirect)
+  agreementSection.addEventListener('submit', (e) => {
+    // Optionally prevent default to do your own AJAX or show a quick message
+    // e.preventDefault();
+    // thankYouMessage.classList.remove('hidden');
+    // Or allow Formspree to handle it and redirect:
+  });
+</script>
+</body>
+</html>
