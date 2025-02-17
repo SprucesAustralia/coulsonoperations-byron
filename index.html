@@ -1,496 +1,495 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Spruces Cleaning - Project Details</title>
+  <meta charset="UTF-8">
+  <title>Spruces Cleaning - Contract & Photos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     /* 
-      Updated Styling to Match Spruces Dark Green Branding
-      ----------------------------------------------------
-      The primary background is a dark green (#1A2E2F).
-      Text is mostly white (#FFFFFF).
-      Buttons and highlights use a lighter green (#A9C23F).
+      Black & White + Readable Font
+      Designed for mobile screens
     */
-
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
-      background-color: #1A2E2F; /* Main brand dark green */
-      color: #FFFFFF;           /* White text */
-      font-family: "Georgia", serif; /* Example of a serif font similar to the screenshot */
-      line-height: 1.6;
+      background-color: #fff;
+      color: #000;
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      padding: 10px;
     }
-
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    h1, h2, h3 {
+    h1, h2, h3, h4 {
       margin-bottom: 10px;
       font-weight: normal;
     }
-
     h1 {
       margin-top: 0;
-      font-size: 2rem;
+      font-size: 1.4rem;
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .section {
+      margin-bottom: 20px;
     }
 
-    h2 {
-      font-size: 1.6rem;
-      margin-top: 40px;
-    }
-
-    /* Tables */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-      background-color: #2B4443; /* Slightly lighter green for table background */
-    }
-
-    table thead {
-      background-color: #344F4D; /* Darker row for header */
-    }
-
-    table th, table td {
-      text-align: left;
-      padding: 8px;
-      border: 1px solid #3F5C5A;
+    /* Form & Input Styles */
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
       font-size: 0.9rem;
     }
-
-    table th {
-      font-weight: bold;
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      border-radius: 4px;
+      color: #333;
+    }
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 12px;
+      font-size: 1rem;
+      border-radius: 4px;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 15px;
+      margin-right: 5px;
+      background-color: #000;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .button:hover {
+      background-color: #555;
     }
 
-    /* Section headings */
-    .section-heading {
-      margin-top: 40px;
-      padding-bottom: 5px;
-      border-bottom: 2px solid #A9C23F; /* brand accent color */
+    /* Signature Canvas */
+    #signature-container {
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      position: relative;
+      touch-action: none;
+    }
+    #signature-canvas {
+      width: 100%;
+      height: 200px;
+      background-color: #f9f9f9;
+    }
+    #clear-signature {
+      background-color: #ccc;
+      color: #000;
+      margin-bottom: 10px;
+    }
+    
+    /* Drag-and-Drop Zone */
+    .dropzone {
+      border: 2px dashed #ccc;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 15px;
+      border-radius: 4px;
+    }
+    .dropzone.dragover {
+      border-color: #000;
+    }
+    .dropzone p {
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+    }
+    .dropzone input[type="text"] {
+      margin-top: 5px;
     }
 
-    /* Image gallery */
-    .image-gallery {
+    /* Image Gallery / Thumbnails */
+    .thumbnails {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
     }
-
-    .image-gallery img {
-      width: 200px;
-      height: auto;
-      border: 2px solid #A9C23F;
-      border-radius: 4px;
-    }
-
-    /* Questionnaire / Form */
-    .questionnaire, .agreement-section {
-      margin-top: 20px;
-      background-color: #2B4443; 
-      padding: 15px;
-      border-radius: 6px;
-      border: 1px solid #3F5C5A;
-    }
-
-    .questionnaire h2, .agreement-section h2 {
-      margin-top: 0;
-    }
-
-    .question label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-      font-size: 1rem;
-    }
-
-    select, input[type="text"], input[type="email"], textarea {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-      color: #333;
+    .thumbnail {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      background-color: #eee;
       border: 1px solid #ccc;
-      border-radius: 4px;
-      font-family: Arial, sans-serif;
-      font-size: 0.9rem;
-    }
-
-    /* Buttons */
-    .btn {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #A9C23F; /* brand accent color */
-      color: #1A2E2F;
-      border: none;
-      border-radius: 4px;
-      font-size: 0.9rem;
+      overflow: hidden;
       cursor: pointer;
-      text-decoration: none;
-      font-weight: bold;
     }
-    .btn:hover {
-      background-color: #92AB37;
-    }
-
-    /* Agreement text area */
-    .agreement-text {
-      background-color: #344F4D;
-      padding: 10px;
-      border-radius: 4px;
-      margin-bottom: 10px;
-      white-space: pre-line; /* preserve line breaks */
-      font-size: 0.9rem;
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
+    /* Image Overlay */
+    #overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 999;
+    }
+    #overlay img {
+      max-width: 90%;
+      max-height: 90%;
+    }
+
+    /* Hidden Fields */
     .hidden {
       display: none;
     }
 
-    /* Thank you message */
-    .thank-you {
-      background-color: #344F4D;
-      border: 1px solid #3F5C5A;
-      padding: 15px;
-      border-radius: 6px;
-      margin-top: 20px;
+    /* Additional minor styling */
+    .agreement-text {
+      font-size: 0.9rem;
+      background-color: #f2f2f2;
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      color: #333;
     }
   </style>
 </head>
+
 <body>
-
 <div class="container">
-  <h1>Spruces Cleaning: Project Details</h1>
+  <h1>Spruces Cleaning Contract & Photos</h1>
 
-  <!-- Project Overview -->
-  <section>
-    <p><strong>Project Name:</strong> Coulson Operations Post Construction Cleaning</p>
-    <p><strong>Location/Site Address:</strong> 17 Clifford St, Suffolk Park Kool Beanz</p>
-    <p><strong>Property Size:</strong> 370m²</p>
-    <p><strong>Cleaner Details:</strong> [Optional: Fill in Cleaner Name, Contact Info]</p>
-    <p><strong>Cleaning Instructions:</strong> Post Construction Cleaning</p>
-    <p><strong>Cleaning Frequency:</strong> 2 Visits</p>
-    <p><strong>Cleaning Date 1:</strong> 17 February</p>
-    <p><strong>Cleaning Date 2:</strong> 3 March</p>
-    <p><strong>Number of Cleaners:</strong> 3</p>
-    <p><strong>Duration:</strong> Fix (Hours:Minutes TBD)</p>
-    <p><strong>Pay to Cleaner:</strong> $1600 (Total) <small>(50% upon documentation, 50% after confirmation)</small></p>
-  </section>
+  <!-- FORM: Posts to Formspree with all data -->
+  <form id="mainForm" action="https://formspree.io/f/mgvoljgr" method="POST" enctype="multipart/form-data">
 
-  <!-- Task Table (Scope of Work) -->
-  <h2 class="section-heading">Scope of Work</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Area</th>
-        <th>Task</th>
-        <th>Notes</th>
-        <th>Tools</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Upstairs: Large Rooms</td>
-        <td>
-          - Dust all surfaces (furniture/fixtures)<br>
-          - Vacuum/mop floors (remove debris)<br>
-          - Wipe skirting boards
-        </td>
-        <td>Applies to all three large rooms on the upper level</td>
-        <td>Vacuum, Mop, Disinfectant, Cloths</td>
-      </tr>
-      <tr>
-        <td>Upstairs: Adjacent Bathrooms</td>
-        <td>
-          - Deep clean showers, toilets, sinks, tiles, mirrors<br>
-          - Sanitize high-touch surfaces
-        </td>
-        <td>Covers bathrooms adjacent to large rooms</td>
-        <td>Vacuum, Mop, Degreaser, Sponges, Glass Cleaner</td>
-      </tr>
-      <tr>
-        <td>Downstairs: Reception</td>
-        <td>
-          - Dust all surfaces<br>
-          - Vacuum/mop floors<br>
-          - Remove construction dust/debris
-        </td>
-        <td>Ensures move-in ready presentation</td>
-        <td>Disinfectant, Mop, Trash Bags, Degreaser</td>
-      </tr>
-      <tr>
-        <td>Downstairs: Corridors</td>
-        <td>- Sweep/vacuum and mop floors</td>
-        <td>Thorough cleaning of hallways</td>
-        <td>Broom, Vacuum, Mop, Trash Bags, Disinfectant</td>
-      </tr>
-      <tr>
-        <td>Downstairs: Staff Bathrooms</td>
-        <td>
-          - Deep clean showers, toilets, sinks, tiles, mirrors<br>
-          - Sanitize high-touch surfaces
-        </td>
-        <td>Applies to both staff bathrooms</td>
-        <td>Toilet Brush, Glass Cleaner, Disinfectant, Cloths</td>
-      </tr>
-      <tr>
-        <td>Downstairs: Kitchen</td>
-        <td>
-          - Clean countertops<br>
-          - Wipe cabinets (in/out)<br>
-          - Clean appliances<br>
-          - Vacuum/mop floors (remove residue)
-        </td>
-        <td>Focus on cleaning behind appliances for deep cleans</td>
-        <td>Degreaser, Disinfectant, Mop, Vacuum, Cloths, Sponges</td>
-      </tr>
-      <tr>
-        <td>Downstairs: Laundry</td>
-        <td>
-          - Dust/wipe surfaces<br>
-          - Vacuum/mop floors
-        </td>
-        <td>Focus on removing construction dust/debris</td>
-        <td>Vacuum, Mop, Disinfectant, Cloths</td>
-      </tr>
-      <tr>
-        <td>Other Tasks: Windows</td>
-        <td>
-          - Clean interior glass<br>
-          - Clean accessible exterior glass (ground-level)<br>
-          - Wipe frames/tracks
-        </td>
-        <td>Exterior limited to ground-level windows</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>Other Tasks: Floors</td>
-        <td>
-          - Vacuum/mop all floors<br>
-          - Remove debris, paint splatters, adhesive
-        </td>
-        <td>All floor areas thoroughly cleaned</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>Other Tasks: Cabinetry</td>
-        <td>- Clean inside/out, including shelving</td>
-        <td>Remove dust/residues</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>Other Tasks: Dusting</td>
-        <td>- Full wipe-down (surfaces, skirting boards, fixtures)</td>
-        <td>Complete removal of dust/debris</td>
-        <td>-</td>
-      </tr>
-    </tbody>
-  </table>
+    <!-- Agreement Section -->
+    <div class="section" id="agreement-section">
+      <h2>1. Agreement Details</h2>
+      <div class="agreement-text">
+        <p>This agreement is made between Spruces Cleaning Company ("the Company") and the Cleaner.</p>
+        <p>By signing and submitting this form, you acknowledge and agree to all the terms of the contract.</p>
+        <p>Payment: 50% upon required documentation submission, 50% once the client is satisfied.</p>
+        <!-- ... add your terms and conditions text as needed ... -->
+      </div>
 
-  <!-- Additional Details -->
-  <h2 class="section-heading">Additional Details</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Field</th>
-        <th>Details</th>
-      </tr>
-    </thead>
-    <tbody style="background-color:#2B4443;">
-      <tr>
-        <td>Where to Park?</td>
-        <td>Carpark or street parking available</td>
-      </tr>
-      <tr>
-        <td>Access to Building</td>
-        <td>Onsite manager will be there</td>
-      </tr>
-      <tr>
-        <td>Keys & Security</td>
-        <td>Just Walk in (Someone can let them in)</td>
-      </tr>
-      <tr>
-        <td>Contact Onsite</td>
-        <td>Simon or Jaime – 61437426599</td>
-      </tr>
-      <tr>
-        <td>Site Induction/Photos</td>
-        <td>[Insert any induction photos or instructions]</td>
-      </tr>
-    </tbody>
-  </table>
+      <!-- Name, Email, Phone, Address, Bank Details -->
+      <label for="fullName">Full Name</label>
+      <input type="text" name="fullName" id="fullName" required>
 
-  <!-- Image Gallery -->
-  <h2 class="section-heading">Images / Floor Plans</h2>
-  <div class="image-gallery">
-    <!-- Example usage of images:
-         Place 'image1.jpg' in the same repo (e.g. in an 'images' folder).
-         Then reference it: <img src="images/image1.jpg" alt="Floor Plan 1" /> -->
-    <img src="images/image1.jpg" alt="Floor Plan 1" />
-    <img src="images/image2.jpg" alt="Floor Plan 2" />
-    <img src="images/image3.jpg" alt="Before Cleaning Photo" />
-    <img src="images/image4.jpg" alt="Another Photo" />
-  </div>
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" required>
 
-  <!-- Questionnaire -->
-  <div class="questionnaire" id="questionnaire">
-    <h2>1. Ready for this Project?</h2>
-    <p>We at Spruces believe in the 3T’s: Time, Tools, and Training—pillars of high-quality, efficient service.</p>
+      <label for="phone">Phone</label>
+      <input type="tel" name="phone" id="phone" required>
 
-    <div class="question">
-      <label for="time-readiness">
-        a. Time (Required)<br>
-        Have you completed the necessary course for this type of job?
-      </label>
-      <select id="time-readiness" name="timeReadiness">
-        <option value="Yes">Yes, I've completed the necessary course</option>
-        <option value="No">No, I need more information/training</option>
-      </select>
+      <label for="address">Address</label>
+      <input type="text" name="address" id="address" required>
+
+      <label for="bankDetails">Bank Details (BSB & Account No.)</label>
+      <input type="text" name="bankDetails" id="bankDetails" required>
     </div>
 
-    <div class="question">
-      <label for="tools-readiness">
-        b. Tools (Required)<br>
-        Will you have all required tools on the day of the project?
-      </label>
-      <select id="tools-readiness" name="toolsReadiness">
-        <option value="Yes">Yes, I'm fully equipped</option>
-        <option value="No">No, I need assistance or additional tools</option>
-      </select>
+    <!-- Signature Section -->
+    <div class="section" id="signature-section">
+      <h2>2. Signature</h2>
+      <p>Please sign below (finger on mobile or mouse on desktop).</p>
+      <div id="signature-container">
+        <canvas id="signature-canvas"></canvas>
+      </div>
+      <button type="button" class="button" id="clear-signature">Clear Signature</button>
+
+      <!-- Hidden input to store signature data as Base64 -->
+      <input type="hidden" name="signatureData" id="signatureData" value="">
     </div>
 
-    <div class="question">
-      <label for="training-readiness">
-        c. Training (Required)<br>
-        Do you feel you need additional training/support to complete this project effectively?
-      </label>
-      <select id="training-readiness" name="trainingReadiness">
-        <option value="No">No, I'm confident and ready</option>
-        <option value="Yes">Yes, I'd like extra support/training</option>
-      </select>
-    </div>
-    <button class="btn" id="questionnaire-continue">Continue</button>
-  </div>
-
-  <!-- Agreement Section / Form -->
-  <form 
-    class="agreement-section hidden" 
-    id="agreement-section" 
-    action="https://formspree.io/f/mgvoljgr" 
-    method="POST"
-  >
-    <h2>2. Great! You seem ready for this project.</h2>
-    <p>Let’s move on to signing the terms and agreement.</p>
-
-    <!-- Terms and Agreement Text -->
-    <h3>a. Terms and Agreement</h3>
-    <div class="agreement-text">
-      This agreement is made between:
-      Spruces Cleaning Company ("the Company")
-      and
-      Jessica ("the Cleaner")
-      
-      Project Details:
-      Coulson Operations Post Construction Cleaning
-      Location: 17 Clifford St, Suffolk Park Kool Beanz
-      Cleaning Date 1: Monday 17 February
-      Cleaning Date 2: Monday 3 March
-      Duration: One-Off
-      Compensation: $1600
-
-      Terms and Conditions:
-      1. Scope of Work
-         The Cleaner agrees to perform cleaning services as specified by the Company.
-      2. Work Standards and Conduct
-         The Cleaner shall maintain high professionalism. Substandard work must be redone at no cost.
-      3. Confidentiality
-         The Cleaner agrees to keep all client and Company information confidential.
-      4. Tools & Supplies
-         The Cleaner is responsible for own equipment, PPE, and transport.
-      5. Termination
-         Immediate termination for misconduct or failure to meet performance.
-      6. Insurance & Liability
-         The Cleaner must hold liability insurance. The Company is not responsible for negligence.
-      7. Dispute Resolution
-         Disputes resolved via negotiation.
-      8. Electronic Signature
-         By selecting "I accept", the Cleaner agrees to all terms.
-      9. Documentation
-         Before/after photos/videos for each area for client transparency.
-      10. Payment
-         50% upon submitting required documentation, 50% after client satisfaction.
+    <!-- BEFORE Pictures Section -->
+    <div class="section" id="before-pics-section">
+      <h2>3. Before Pictures</h2>
+      <div class="dropzone" id="dropzoneBefore">
+        <p>Drag & Drop or Click to Upload a “Before” Photo</p>
+        <label for="beforeLabel">Label (e.g. "Living Room Before")</label>
+        <input type="text" id="beforeLabel" placeholder="Label this photo..." />
+      </div>
+      <!-- Thumbnails of uploaded BEFORE images -->
+      <div class="thumbnails" id="beforeThumbnails"></div>
     </div>
 
-    <!-- Additional Required Fields -->
-    <label for="fullName"><strong>Full Name (for e-signature)</strong></label>
-    <input type="text" id="fullName" name="fullName" placeholder="Enter your full legal name" required />
+    <!-- AFTER Pictures Section -->
+    <div class="section" id="after-pics-section">
+      <h2>4. After Pictures</h2>
+      <div class="dropzone" id="dropzoneAfter">
+        <p>Drag & Drop or Click to Upload an “After” Photo</p>
+        <label for="afterLabel">Label (e.g. "Living Room After")</label>
+        <input type="text" id="afterLabel" placeholder="Label this photo..." />
+      </div>
+      <!-- Thumbnails of uploaded AFTER images -->
+      <div class="thumbnails" id="afterThumbnails"></div>
+    </div>
 
-    <label for="email"><strong>Email</strong></label>
-    <input type="email" id="email" name="email" placeholder="Enter your email" required />
+    <!-- Hidden fields to store image data for each BEFORE & AFTER upload -->
+    <!-- If multiple images needed, replicate the logic or store them in arrays. -->
+    <input type="hidden" name="beforeImages" id="beforeImages">
+    <input type="hidden" name="afterImages" id="afterImages">
 
-    <label for="phone"><strong>Phone</strong></label>
-    <input type="text" id="phone" name="phone" placeholder="Enter your phone number" required />
-
-    <label for="address"><strong>Address</strong></label>
-    <input type="text" id="address" name="address" placeholder="Enter your address" required />
-
-    <label for="bankDetails"><strong>Bank Details</strong></label>
-    <input type="text" id="bankDetails" name="bankDetails" placeholder="BSB - Account Number" required />
-
-    <!-- Hidden fields to send questionnaire responses through Formspree -->
-    <input type="hidden" id="hidden-time-readiness" name="Time_Readiness" value="" />
-    <input type="hidden" id="hidden-tools-readiness" name="Tools_Readiness" value="" />
-    <input type="hidden" id="hidden-training-readiness" name="Training_Readiness" value="" />
-
-    <button class="btn" type="submit" id="btn-accept">I Accept</button>
+    <!-- Submit Button -->
+    <button type="submit" class="button">Submit Contract</button>
   </form>
 
-  <!-- Thank You Message -->
-  <div class="thank-you hidden" id="thank-you-message">
-    <h2>Thank You!</h2>
-    <p>Your form has been submitted. We will be in touch soon.</p>
+  <!-- IMAGE OVERLAY for full-size preview -->
+  <div id="overlay">
+    <img src="#" alt="Full Image Preview" id="overlayImg">
   </div>
-</div>
+
+</div> <!-- end container -->
 
 <script>
-  // Show/Hide Agreement Section after Questionnaire
-  const questionnaireContinueBtn = document.getElementById('questionnaire-continue');
-  const agreementSection = document.getElementById('agreement-section');
-  const thankYouMessage = document.getElementById('thank-you-message');
+  /* 
+   * 1) SIGNATURE CANVAS
+   */
+  const signatureCanvas = document.getElementById('signature-canvas');
+  const signatureContainer = document.getElementById('signature-container');
+  const clearSignatureBtn = document.getElementById('clear-signature');
+  const signatureDataInput = document.getElementById('signatureData');
 
-  // Dropdown fields
-  const timeReadiness = document.getElementById('time-readiness');
-  const toolsReadiness = document.getElementById('tools-readiness');
-  const trainingReadiness = document.getElementById('training-readiness');
+  let signaturePad, ctx, drawing = false;
 
-  // Hidden form fields
-  const hiddenTime = document.getElementById('hidden-time-readiness');
-  const hiddenTools = document.getElementById('hidden-tools-readiness');
-  const hiddenTraining = document.getElementById('hidden-training-readiness');
+  // Resize the canvas to fit container width
+  function resizeCanvas() {
+    signatureCanvas.width = signatureContainer.clientWidth;
+    signatureCanvas.height = 200; // fixed height
+    ctx = signatureCanvas.getContext('2d');
+    ctx.fillStyle = "#ffffff"; // White background
+    ctx.fillRect(0, 0, signatureCanvas.width, signatureCanvas.height);
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
 
-  questionnaireContinueBtn.addEventListener('click', () => {
-    // Transfer the selected values to hidden fields so they can be submitted
-    hiddenTime.value = timeReadiness.value;
-    hiddenTools.value = toolsReadiness.value;
-    hiddenTraining.value = trainingReadiness.value;
+  // Canvas drawing events
+  function startDrawing(e) {
+    drawing = true;
+    ctx.beginPath();
+    ctx.moveTo(getX(e), getY(e));
+    e.preventDefault();
+  }
+  function draw(e) {
+    if(!drawing) return;
+    ctx.lineTo(getX(e), getY(e));
+    ctx.strokeStyle = "#000";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    e.preventDefault();
+  }
+  function stopDrawing(e) {
+    if(!drawing) return;
+    drawing = false;
+    e.preventDefault();
+  }
+  function getX(e) {
+    if(e.type.includes('touch')) {
+      return e.touches[0].clientX - signatureCanvas.getBoundingClientRect().left;
+    }
+    return e.clientX - signatureCanvas.getBoundingClientRect().left;
+  }
+  function getY(e) {
+    if(e.type.includes('touch')) {
+      return e.touches[0].clientY - signatureCanvas.getBoundingClientRect().top;
+    }
+    return e.clientY - signatureCanvas.getBoundingClientRect().top;
+  }
 
-    // Show the agreement form
-    agreementSection.classList.remove('hidden');
-    questionnaireContinueBtn.textContent = "Saved!";
-    questionnaireContinueBtn.disabled = true;
+  signatureCanvas.addEventListener('mousedown', startDrawing);
+  signatureCanvas.addEventListener('mousemove', draw);
+  signatureCanvas.addEventListener('mouseup', stopDrawing);
+  signatureCanvas.addEventListener('mouseleave', stopDrawing);
+
+  signatureCanvas.addEventListener('touchstart', startDrawing, {passive: false});
+  signatureCanvas.addEventListener('touchmove', draw, {passive: false});
+  signatureCanvas.addEventListener('touchend', stopDrawing, {passive: false});
+  
+  clearSignatureBtn.addEventListener('click', () => {
+    ctx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, signatureCanvas.width, signatureCanvas.height);
   });
 
-  // On form submission, display Thank You message (this is optional if you rely on Formspree's redirect)
-  agreementSection.addEventListener('submit', (e) => {
-    // Optionally prevent default to do your own AJAX or show a quick message
-    // e.preventDefault();
-    // thankYouMessage.classList.remove('hidden');
-    // Or allow Formspree to handle it and redirect:
+  /* 
+   * 2) DRAG & DROP IMAGE UPLOAD
+   *    - We'll store one image (Base64) for BEFORE, and one image for AFTER 
+   *      to show the logic. 
+   *    - If you need multiples, replicate or store in arrays.
+   *    - Once uploaded, we disable further changes to that zone.
+   */
+
+  const dropzoneBefore = document.getElementById('dropzoneBefore');
+  const dropzoneAfter = document.getElementById('dropzoneAfter');
+
+  const beforeThumbnails = document.getElementById('beforeThumbnails');
+  const afterThumbnails = document.getElementById('afterThumbnails');
+
+  const beforeImagesInput = document.getElementById('beforeImages');
+  const afterImagesInput = document.getElementById('afterImages');
+
+  let beforeUploaded = false;
+  let afterUploaded = false;
+
+  // Helper: handle drag events
+  function handleDragOver(e) {
+    e.preventDefault();
+    e.currentTarget.classList.add('dragover');
+  }
+  function handleDragLeave(e) {
+    e.currentTarget.classList.remove('dragover');
+  }
+
+  dropzoneBefore.addEventListener('dragover', handleDragOver);
+  dropzoneBefore.addEventListener('dragleave', handleDragLeave);
+  dropzoneAfter.addEventListener('dragover', handleDragOver);
+  dropzoneAfter.addEventListener('dragleave', handleDragLeave);
+
+  dropzoneBefore.addEventListener('drop', (e) => handleDrop(e, 'before'));
+  dropzoneAfter.addEventListener('drop', (e) => handleDrop(e, 'after'));
+
+  // Also handle click to open file dialog
+  dropzoneBefore.addEventListener('click', () => {
+    if(!beforeUploaded) {
+      openFileDialog('before');
+    }
+  });
+  dropzoneAfter.addEventListener('click', () => {
+    if(!afterUploaded) {
+      openFileDialog('after');
+    }
+  });
+
+  function openFileDialog(type) {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    fileInput.onchange = (e) => {
+      const file = e.target.files[0];
+      if(file) {
+        processFile(file, type);
+      }
+    };
+    fileInput.click();
+  }
+
+  function handleDrop(e, type) {
+    e.preventDefault();
+    e.currentTarget.classList.remove('dragover');
+    if((type === 'before' && beforeUploaded) || (type === 'after' && afterUploaded)) {
+      return; // do nothing if already uploaded
+    }
+    const file = e.dataTransfer.files[0];
+    if(file) {
+      processFile(file, type);
+    }
+  }
+
+  function processFile(file, type) {
+    const labelId = (type === 'before') ? 'beforeLabel' : 'afterLabel';
+    const labelValue = document.getElementById(labelId).value.trim();
+    if(!labelValue) {
+      alert('Please enter a label before uploading the image.');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      const base64 = evt.target.result; // base64 data
+      displayThumbnail(base64, labelValue, type);
+      storeImageData(base64, labelValue, type);
+      // Mark as uploaded so they can't change
+      if(type === 'before') {
+        beforeUploaded = true;
+      } else {
+        afterUploaded = true;
+      }
+      disableDropzone(type);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function displayThumbnail(base64, label, type) {
+    const container = (type === 'before') ? beforeThumbnails : afterThumbnails;
+
+    // Create a thumbnail
+    const thumbDiv = document.createElement('div');
+    thumbDiv.classList.add('thumbnail');
+
+    // Show label in a title attribute or a small overlay
+    thumbDiv.title = label;
+
+    const img = document.createElement('img');
+    img.src = base64;
+    thumbDiv.appendChild(img);
+
+    // Clicking the thumbnail => show overlay
+    thumbDiv.addEventListener('click', () => {
+      showOverlay(base64);
+    });
+
+    container.appendChild(thumbDiv);
+  }
+
+  function storeImageData(base64, label, type) {
+    // We'll store them as JSON in a hidden field: [{label:..., data:...}]
+    const hiddenInput = (type === 'before') ? beforeImagesInput : afterImagesInput;
+    let stored = [];
+    if(hiddenInput.value) {
+      try { stored = JSON.parse(hiddenInput.value); } catch(e) {}
+    }
+    stored.push({ label, data: base64 });
+    hiddenInput.value = JSON.stringify(stored);
+  }
+
+  function disableDropzone(type) {
+    const dropzone = (type === 'before') ? dropzoneBefore : dropzoneAfter;
+    // We can grey it out or add some text
+    dropzone.style.pointerEvents = 'none';
+    dropzone.style.opacity = '0.5';
+  }
+
+  /*
+   * IMAGE OVERLAY (Full-Size Preview)
+   */
+  const overlay = document.getElementById('overlay');
+  const overlayImg = document.getElementById('overlayImg');
+
+  function showOverlay(base64) {
+    overlayImg.src = base64;
+    overlay.style.display = 'flex';
+  }
+
+  overlay.addEventListener('click', () => {
+    overlay.style.display = 'none';
+  });
+
+  /*
+   * 3) On form submission, convert signature canvas to Base64
+   *    and store in hidden field. Then let the form submit.
+   */
+  const mainForm = document.getElementById('mainForm');
+  mainForm.addEventListener('submit', (e) => {
+    // Convert signature to Base64
+    const dataURL = signatureCanvas.toDataURL('image/png');
+    signatureDataInput.value = dataURL;
   });
 </script>
 </body>
