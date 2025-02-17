@@ -2,133 +2,76 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Spruces Cleaning - Contract & Photos</title>
+  <title>BPG Richlands - Spruces Cleaning Project</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Supabase Client Library -->
+  <script src="https://unpkg.com/@supabase/supabase-js/dist/umd/supabase.js"></script>
   <style>
-    /* 
-      Black & White + Readable Font
-      Designed for mobile screens
-    */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
     body {
       background-color: #fff;
       color: #000;
       font-family: Arial, sans-serif;
+      margin: 0; 
+      padding: 0;
       line-height: 1.5;
-      padding: 10px;
-    }
-    h1, h2, h3, h4 {
-      margin-bottom: 10px;
-      font-weight: normal;
-    }
-    h1 {
-      margin-top: 0;
-      font-size: 1.4rem;
-      text-align: center;
     }
     .container {
-      max-width: 600px;
+      max-width: 800px;
       margin: 0 auto;
+      padding: 10px 15px;
     }
-    .section {
-      margin-bottom: 20px;
+    h1, h2, h3 {
+      margin-top: 20px;
+      margin-bottom: 10px;
     }
-
-    /* Form & Input Styles */
+    p {
+      margin-bottom: 10px;
+    }
+    hr {
+      margin: 20px 0;
+    }
     label {
-      display: block;
-      margin-bottom: 5px;
       font-weight: bold;
-      font-size: 0.9rem;
+      display: block;
+      margin: 10px 0 5px;
     }
     input[type="text"],
     input[type="email"],
     input[type="tel"],
+    input[type="file"],
+    select,
     textarea {
       width: 100%;
       padding: 8px;
-      margin-bottom: 12px;
-      border: 1px solid #ccc;
+      margin-bottom: 10px;
       font-size: 1rem;
-      border-radius: 4px;
-      color: #333;
-    }
-    select {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 12px;
-      font-size: 1rem;
-      border-radius: 4px;
     }
     .button {
-      display: inline-block;
-      padding: 10px 15px;
-      margin-right: 5px;
       background-color: #000;
       color: #fff;
       border: none;
       border-radius: 4px;
-      text-decoration: none;
       cursor: pointer;
+      padding: 10px 15px;
       font-size: 1rem;
+      margin-right: 10px;
     }
     .button:hover {
-      background-color: #555;
+      background-color: #333;
     }
-
-    /* Signature Canvas */
-    #signature-container {
-      border: 1px solid #ccc;
-      margin-bottom: 10px;
-      position: relative;
-      touch-action: none;
-    }
-    #signature-canvas {
-      width: 100%;
-      height: 200px;
-      background-color: #f9f9f9;
-    }
-    #clear-signature {
-      background-color: #ccc;
-      color: #000;
-      margin-bottom: 10px;
-    }
-    
-    /* Drag-and-Drop Zone */
-    .dropzone {
-      border: 2px dashed #ccc;
-      padding: 20px;
-      text-align: center;
-      margin-bottom: 15px;
-      border-radius: 4px;
-    }
-    .dropzone.dragover {
-      border-color: #000;
-    }
-    .dropzone p {
-      margin-bottom: 10px;
-      font-size: 0.9rem;
-    }
-    .dropzone input[type="text"] {
-      margin-top: 5px;
-    }
-
-    /* Image Gallery / Thumbnails */
-    .thumbnails {
+    /* Simple thumbnail gallery */
+    .thumbnail-gallery {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
+      margin-bottom: 20px;
     }
     .thumbnail {
-      position: relative;
-      width: 80px;
-      height: 80px;
-      background-color: #eee;
+      width: 100px; 
+      height: 100px;
+      background-color: #f2f2f2;
       border: 1px solid #ccc;
+      position: relative;
       overflow: hidden;
       cursor: pointer;
     }
@@ -137,151 +80,575 @@
       height: 100%;
       object-fit: cover;
     }
-
-    /* Image Overlay */
+    /* Overlay for expanded images */
     #overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
       display: none;
+      position: fixed;
+      top: 0; left: 0; 
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.7);
       justify-content: center;
       align-items: center;
+      z-index: 9999;
       cursor: pointer;
-      z-index: 999;
     }
     #overlay img {
       max-width: 90%;
       max-height: 90%;
     }
-
-    /* Hidden Fields */
-    .hidden {
-      display: none;
+    /* Signature Canvas */
+    #signature-canvas {
+      width: 100%;
+      height: 200px;
+      border: 1px solid #ccc;
+      background-color: #fff;
     }
-
-    /* Additional minor styling */
-    .agreement-text {
-      font-size: 0.9rem;
-      background-color: #f2f2f2;
-      padding: 10px;
-      border-radius: 4px;
+    #clear-signature {
+      background-color: #ccc;
+      color: #000;
       margin-bottom: 10px;
-      color: #333;
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+    #clear-signature:hover {
+      background-color: #aaa;
+    }
+    .section-heading {
+      font-size: 1.2rem;
+      margin-top: 30px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+    }
+    .sub-section {
+      margin-top: 20px;
+    }
+    .info-box {
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 20px;
     }
   </style>
 </head>
-
 <body>
 <div class="container">
-  <h1>Spruces Cleaning Contract & Photos</h1>
+  <h1>BPG Richlands - Spruces Cleaning Project</h1>
 
-  <!-- FORM: Posts to Formspree with all data -->
-  <form id="mainForm" action="https://formspree.io/f/mgvoljgr" method="POST" enctype="multipart/form-data">
-
-    <!-- Agreement Section -->
-    <div class="section" id="agreement-section">
-      <h2>1. Agreement Details</h2>
-      <div class="agreement-text">
-        <p>This agreement is made between Spruces Cleaning Company ("the Company") and the Cleaner.</p>
-        <p>By signing and submitting this form, you acknowledge and agree to all the terms of the contract.</p>
-        <p>Payment: 50% upon required documentation submission, 50% once the client is satisfied.</p>
-        <!-- ... add your terms and conditions text as needed ... -->
-      </div>
-
-      <!-- Name, Email, Phone, Address, Bank Details -->
-      <label for="fullName">Full Name</label>
-      <input type="text" name="fullName" id="fullName" required>
-
-      <label for="email">Email</label>
-      <input type="email" name="email" id="email" required>
-
-      <label for="phone">Phone</label>
-      <input type="tel" name="phone" id="phone" required>
-
-      <label for="address">Address</label>
-      <input type="text" name="address" id="address" required>
-
-      <label for="bankDetails">Bank Details (BSB & Account No.)</label>
-      <input type="text" name="bankDetails" id="bankDetails" required>
-    </div>
-
-    <!-- Signature Section -->
-    <div class="section" id="signature-section">
-      <h2>2. Signature</h2>
-      <p>Please sign below (finger on mobile or mouse on desktop).</p>
-      <div id="signature-container">
-        <canvas id="signature-canvas"></canvas>
-      </div>
-      <button type="button" class="button" id="clear-signature">Clear Signature</button>
-
-      <!-- Hidden input to store signature data as Base64 -->
-      <input type="hidden" name="signatureData" id="signatureData" value="">
-    </div>
-
-    <!-- BEFORE Pictures Section -->
-    <div class="section" id="before-pics-section">
-      <h2>3. Before Pictures</h2>
-      <div class="dropzone" id="dropzoneBefore">
-        <p>Drag & Drop or Click to Upload a “Before” Photo</p>
-        <label for="beforeLabel">Label (e.g. "Living Room Before")</label>
-        <input type="text" id="beforeLabel" placeholder="Label this photo..." />
-      </div>
-      <!-- Thumbnails of uploaded BEFORE images -->
-      <div class="thumbnails" id="beforeThumbnails"></div>
-    </div>
-
-    <!-- AFTER Pictures Section -->
-    <div class="section" id="after-pics-section">
-      <h2>4. After Pictures</h2>
-      <div class="dropzone" id="dropzoneAfter">
-        <p>Drag & Drop or Click to Upload an “After” Photo</p>
-        <label for="afterLabel">Label (e.g. "Living Room After")</label>
-        <input type="text" id="afterLabel" placeholder="Label this photo..." />
-      </div>
-      <!-- Thumbnails of uploaded AFTER images -->
-      <div class="thumbnails" id="afterThumbnails"></div>
-    </div>
-
-    <!-- Hidden fields to store image data for each BEFORE & AFTER upload -->
-    <!-- If multiple images needed, replicate the logic or store them in arrays. -->
-    <input type="hidden" name="beforeImages" id="beforeImages">
-    <input type="hidden" name="afterImages" id="afterImages">
-
-    <!-- Submit Button -->
-    <button type="submit" class="button">Submit Contract</button>
-  </form>
-
-  <!-- IMAGE OVERLAY for full-size preview -->
-  <div id="overlay">
-    <img src="#" alt="Full Image Preview" id="overlayImg">
+  <!-- ========== SUMMARY PROJECT KEY DETAILS (15-20 lines) ========== -->
+  <div class="info-box">
+    <h2 class="section-heading">1. Summary Project Key Details</h2>
+    <p>
+      <strong>Project:</strong> BPG Richlands Cleaning <br>
+      <strong>Schedule:</strong> 13/03/2025 - 17/03/2025 <br>
+      <strong>Site Address:</strong> 514 Boundary Road, Richlands (Enter via Gate 4) <br>
+      <strong>Included Documents:</strong> Purchase Order, Contractor Programme, Spruces Co Quote, Site Access Instructions & Fitout Guide <br>
+      <strong>Procore Access:</strong> Drawings, Risk Register, HSEQ docs available on Procore. Invitation link will be sent. <br>
+      <strong>Additional Staff:</strong> If more staff need Procore access, forward contact details. <br>
+      <strong>Contacts:</strong><br>
+      &bull; Site Foreman:  Nick Rozic  0421 677 279  nrozic@geyervalmont.com <br>
+      &bull; Project Manager:  Beau Brown  0481 716 208  bbrown@geyervalmont.com <br>
+      &bull; Contracts Admin: Emma Allen 0450 601 334  eallen@geyervalmont.com <br>
+      <strong>Variations:</strong> Do not proceed unless Variation Advice Notice is received from the CA or PM. <br>
+      <strong>Valmont Inductions:</strong> http://www.onlineinduction.com/valmont/index.php <br>
+      <strong>Site Prestart:</strong> Coordinate with Foreman for OH&S, SDS, SWMS sign-off. <br>
+    </p>
   </div>
 
+  <!-- ========== SCOPE OF WORK (50-100 lines) ========== -->
+  <div class="info-box">
+    <h2 class="section-heading">2. Scope of Work</h2>
+    <p>
+      <strong>Post-Construction Cleaning:</strong> Initial Clean, Post-Defect Clean, Pre-Handover Clean <br><br>
+      <strong>General Internal Areas:</strong><br>
+      1. Remove all loose dust, dirt, and construction residue from floors, walls, and ceilings.<br>
+      2. Vacuum all carpeted areas and dust off tiled, vinyl, and timber floors.<br>
+      3. Mop and clean all hard floor surfaces to remove light stains and foot marks.<br>
+      4. Clean all doors, door frames, handles, and stops, removing stickers and adhesives.<br>
+      5. Wipe skirting boards, window sills, other horizontal ledges.<br>
+      6. Dust internal signage, outlets, switches, fans, air-conditioning vents.<br>
+      7. Spot clean walls to remove smudges/fingerprints.<br>
+      8. Clean/vacuum stairwells, including handrails and balustrades.<br><br>
+
+      <strong>Windows & Glazing:</strong><br>
+      1. Internally clean windows, frames, tracks, sills.<br>
+      2. Remove any protective tape/adhesives from glass.<br>
+      3. Wipe down internal glazing panels, partitions, mirrors.<br><br>
+
+      <strong>Joinery & Fixtures:</strong><br>
+      1. Dust/wipe joinery (cabinets, shelves, cupboards in/out).<br>
+      2. Clean door handles, light switches, power outlets.<br>
+      3. Basic kitchen surfaces, benchtops, sinks (no in-depth appliance cleaning).<br><br>
+
+      <strong>Sanitary Areas (Bathrooms, Amenities):</strong><br>
+      1. Clean & disinfect toilets, urinals, sinks, taps.<br>
+      2. Wipe vanities, mirrors, towel rails, soap holders.<br>
+      3. Clean shower screens, remove protective stickers.<br>
+      4. Mop & sanitize tiled/vinyl floors.<br><br>
+
+      <strong>Balconies & External Areas:</strong><br>
+      1. Sweep/remove dust/debris from balconies/patios.<br>
+      2. Light wash to remove residue.<br>
+      3. Ensure no construction rubbish remains.<br><br>
+
+      <strong>Final Checks & Waste Disposal:</strong><br>
+      1. Place cleaning waste into designated bins.<br>
+      2. Leave site tidy, ready for inspection.<br>
+      3. No specialized treatments or deep polishing at this stage.<br>
+    </p>
+  </div>
+
+  <!-- ========== ADDITIONAL DETAILS (20-50 lines) ========== -->
+  <div class="info-box">
+    <h2 class="section-heading">3. Additional Details</h2>
+    <p>
+      1. Any changes on drawings or specs will be distributed via Procore. <br>
+      2. Provide staff contact details for induction if needed. <br>
+      3. All relevant HSEQ plans, risk registers, and updates from the builder must be read before starting. <br>
+      4. Contractors must sign the SWMS and confirm they understand hazards. <br>
+      5. Variation works strictly require an official Variation Advice Notice. <br>
+      6. PPE must be worn at all times in accordance with site rules. <br>
+      7. Emergency procedures will be shown by the Site Foreman (evac routes, muster points). <br>
+      8. Any injuries or incidents must be reported immediately to the Site Foreman. <br>
+      9. Smoking is prohibited within the site boundary. Use designated areas only if provided. <br>
+      10. Tools and equipment must meet electrical compliance (tagging, etc.). <br>
+      11. All chemical SDS must be on hand and accessible. <br>
+      12. Access coordination with other trades is essential to avoid duplication or conflict. <br>
+      13. Keep a daily record of tasks, time onsite, and any issues. <br>
+      14. If the site has high-risk work (e.g. heights), relevant permits must be obtained. <br>
+      15. Additional job-specific notes can be found in the contract documentation or the Procore dashboard. <br>
+    </p>
+  </div>
+
+  <!-- ========== SITE ACCESS INFO (5 lines) ========== -->
+  <div class="info-box">
+    <h2 class="section-heading">4. Site Access Info</h2>
+    <p>
+      1. Enter via Gate 4 from Boundary Road (circled in green on site plan). <br>
+      2. Other gates are dedicated to civil contractors. <br>
+      3. Park in the warehouse on the immediate right and sign in. <br>
+      4. Coordination with the Site Foreman is essential for any specialized access areas. <br>
+      5. Key or security passes (if provided) must be returned after each shift. <br>
+    </p>
+  </div>
+
+  <!-- ========== IMAGES & FLOOR PLANS (ADMIN UPLOADS, up to 20) ========== -->
+  <div class="info-box">
+    <h2 class="section-heading">5. Images & Floor Plans (Admin Upload)</h2>
+    <p>Below you can upload up to 20 images showing site details, floor plans, parking instructions, etc. Once uploaded, images cannot be removed or edited.</p>
+    <!-- Admin Thumbnails Display -->
+    <div class="thumbnail-gallery" id="adminThumbnails"></div>
+    <!-- Upload Controls -->
+    <label for="adminLabel">Label for Admin Image</label>
+    <input type="text" id="adminLabel" placeholder="e.g. 'Parking Entrance'">
+    <input type="file" id="adminFile" accept="image/*">
+    <button class="button" id="adminUploadBtn">Upload Admin Image</button>
+  </div>
+
+  <!-- ========== BOOKING DETAILS & PAYMENT (20-30 lines) ========== -->
+  <div class="info-box">
+    <h2 class="section-heading">6. Booking Details & Payment Inclusions</h2>
+    <p>
+      1. Cleaning scheduled for 13/03/2025 - 17/03/2025 (subject to builder updates). <br>
+      2. Standard shift hours: 7:00 AM - 3:30 PM (overtime requires approval). <br>
+      3. Payment Terms: 50% upon completion of this cleaning scope, 50% upon client confirmation and final invoice. <br>
+      4. Spruces will invoice the builder or relevant contact. <br>
+      5. Any additional cleaning requests outside the agreed scope must be quoted separately. <br>
+      6. Payment references must include the project name (BPG Richlands). <br>
+      7. If final sign-off is delayed by the client, the second payment is postponed accordingly. <br>
+      8. All insurance coverage is under the contractor's responsibility (public liability, workers comp). <br>
+      9. Late payment fees may apply if invoices are overdue beyond 14 days from the due date. <br>
+      10. For any questions, contact the Project Manager or Spruces' main office. <br>
+    </p>
+  </div>
+
+  <!-- ========== SIGNING & AGREEMENT ========== -->
+  <div class="info-box">
+    <h2 class="section-heading">7. Signing and Agreement</h2>
+    <p>Please review the critical areas and choose Yes or No for acknowledgment:</p>
+    <label>Have you read the Scope of Work thoroughly?</label>
+    <select id="ackScope">
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+    </select>
+
+    <label>Do you agree to the Variation Work rules (no work without Variation Notice)?</label>
+    <select id="ackVariation">
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+    </select>
+
+    <label>Have you completed the required induction (Valmont Online Induction)?</label>
+    <select id="ackInduction">
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+    </select>
+
+    <label>Full Name</label>
+    <input type="text" id="fullName" placeholder="Cleaner Full Name">
+
+    <label>Email</label>
+    <input type="email" id="email" placeholder="Cleaner Email">
+
+    <label>Phone</label>
+    <input type="tel" id="phone" placeholder="Cleaner Phone Number">
+
+    <label>Address</label>
+    <input type="text" id="address" placeholder="Cleaner Address">
+
+    <label>Bank Details (BSB & Account)</label>
+    <input type="text" id="bankDetails" placeholder="BSB - Account Number">
+
+    <p><strong>Signature (draw with finger or mouse)</strong></p>
+    <button type="button" id="clear-signature">Clear Signature</button>
+    <canvas id="signature-canvas"></canvas>
+  </div>
+
+  <!-- ========== CLEANER BEFORE & AFTER PHOTOS (up to 50 each) ========== -->
+  <div class="info-box">
+    <h2 class="section-heading">8. Before & After Photos</h2>
+    <p>Cleaners: Upload up to 50 “Before” photos and 50 “After” photos. Once uploaded, images remain permanently.</p>
+
+    <!-- BEFORE PHOTOS -->
+    <div class="sub-section">
+      <h3>Before Photos</h3>
+      <div class="thumbnail-gallery" id="beforeThumbnails"></div>
+      <label for="beforeLabel">Label for Before Image</label>
+      <input type="text" id="beforeLabel" placeholder="e.g. 'Hallway Before'">
+      <input type="file" id="beforeFile" accept="image/*">
+      <button class="button" id="beforeUploadBtn">Upload Before Photo</button>
+    </div>
+
+    <!-- AFTER PHOTOS -->
+    <div class="sub-section">
+      <h3>After Photos</h3>
+      <div class="thumbnail-gallery" id="afterThumbnails"></div>
+      <label for="afterLabel">Label for After Image</label>
+      <input type="text" id="afterLabel" placeholder="e.g. 'Hallway After'">
+      <input type="file" id="afterFile" accept="image/*">
+      <button class="button" id="afterUploadBtn">Upload After Photo</button>
+    </div>
+
+    <!-- Submit Entire Form -->
+    <button class="button" id="submitAgreementBtn">Submit Agreement</button>
+  </div>
+
+  <!-- OVERLAY for enlarged images -->
+  <div id="overlay">
+    <img src="" alt="Enlarged preview" id="overlayImg">
+  </div>
 </div> <!-- end container -->
 
 <script>
-  /* 
-   * 1) SIGNATURE CANVAS
-   */
+  /****************************************************************
+   * 1) Supabase Initialization
+   ***************************************************************/
+  const SUPABASE_URL = 'https://czzbegsfbnuhpsnsehvy.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6emJlZ3NmYm51aHBzbnNlaHZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk3NjExMzIsImV4cCI6MjA1NTMzNzEzMn0.1nvoKeX0mJgdY2indHp4iZmmf0z1pBCD2jAP8NxHy3k';
+
+  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  // We'll use a single row with id=1 for this project
+  const PROJECT_ID = 1;
+  const BUCKET_NAME = 'cleaning-photos';
+
+  // Limits for images
+  const MAX_ADMIN_PHOTOS = 20;
+  const MAX_BEFORE_PHOTOS = 50;
+  const MAX_AFTER_PHOTOS = 50;
+
+  // We'll store the latest row data in memory to track arrays of photos
+  let contractRow = null;
+
+  /****************************************************************
+   * 2) Page Load: Fetch or Create the contract row (id=1)
+   ***************************************************************/
+  async function loadContract() {
+    const { data, error } = await supabase
+      .from('cleaning_contracts')
+      .select('*')
+      .eq('id', PROJECT_ID)
+      .single();
+
+    if (error) {
+      // If no row found, let's create it
+      if (error.code === 'PGRST116') {
+        console.log('No record found, creating a new row with id=1...');
+        const { data: newData, error: newError } = await supabase
+          .from('cleaning_contracts')
+          .insert([{ id: PROJECT_ID }])
+          .select('*')
+          .single();
+        if (newError) {
+          console.error('Error creating row', newError);
+          return;
+        }
+        contractRow = newData;
+      } else {
+        console.error('Error loading contract', error);
+      }
+    } else {
+      contractRow = data;
+    }
+
+    // If we have a row, render the existing images
+    if (contractRow) {
+      renderAdminPhotos(contractRow.admin_photos || []);
+      renderBeforePhotos(contractRow.before_photos || []);
+      renderAfterPhotos(contractRow.after_photos || []);
+    }
+  }
+
+  /****************************************************************
+   * 3) Render Existing Images
+   ***************************************************************/
+  const adminThumbnails = document.getElementById('adminThumbnails');
+  const beforeThumbnails = document.getElementById('beforeThumbnails');
+  const afterThumbnails = document.getElementById('afterThumbnails');
+  const overlay = document.getElementById('overlay');
+  const overlayImg = document.getElementById('overlayImg');
+
+  function renderAdminPhotos(photos) {
+    adminThumbnails.innerHTML = '';
+    photos.forEach((item) => {
+      const thumb = createThumbnail(item.url, item.label);
+      adminThumbnails.appendChild(thumb);
+    });
+  }
+  function renderBeforePhotos(photos) {
+    beforeThumbnails.innerHTML = '';
+    photos.forEach((item) => {
+      const thumb = createThumbnail(item.url, item.label);
+      beforeThumbnails.appendChild(thumb);
+    });
+  }
+  function renderAfterPhotos(photos) {
+    afterThumbnails.innerHTML = '';
+    photos.forEach((item) => {
+      const thumb = createThumbnail(item.url, item.label);
+      afterThumbnails.appendChild(thumb);
+    });
+  }
+
+  // Helper: create a DOM element for a thumbnail
+  function createThumbnail(url, label) {
+    const div = document.createElement('div');
+    div.classList.add('thumbnail');
+    div.title = label;
+    const img = document.createElement('img');
+    img.src = url;
+    div.appendChild(img);
+    // On click, show overlay
+    div.addEventListener('click', () => {
+      overlayImg.src = url;
+      overlay.style.display = 'flex';
+    });
+    return div;
+  }
+  // Overlay click => close
+  overlay.addEventListener('click', () => {
+    overlay.style.display = 'none';
+  });
+
+  /****************************************************************
+   * 4) Admin Upload (Up to 20 images)
+   ***************************************************************/
+  const adminUploadBtn = document.getElementById('adminUploadBtn');
+  adminUploadBtn.addEventListener('click', async () => {
+    if (!contractRow) {
+      alert('Contract row not loaded yet.');
+      return;
+    }
+    // Check how many we already have
+    const photos = contractRow.admin_photos || [];
+    if (photos.length >= MAX_ADMIN_PHOTOS) {
+      alert(`Max admin photos (${MAX_ADMIN_PHOTOS}) reached.`);
+      return;
+    }
+
+    const adminLabel = document.getElementById('adminLabel').value.trim();
+    const adminFile = document.getElementById('adminFile').files[0];
+    if (!adminLabel || !adminFile) {
+      alert('Please provide both a label and select a file.');
+      return;
+    }
+
+    // Upload to Supabase Storage
+    const fileName = `admin-${Date.now()}-${adminFile.name}`;
+    const { data, error } = await supabase
+      .storage
+      .from(BUCKET_NAME)
+      .upload(fileName, adminFile);
+
+    if (error) {
+      console.error('Error uploading admin image', error);
+      alert('Upload failed.');
+      return;
+    }
+    // Get public URL
+    const { data: publicData } = supabase
+      .storage
+      .from(BUCKET_NAME)
+      .getPublicUrl(fileName);
+    const newUrl = publicData.publicUrl;
+
+    // Update the table
+    const newPhotos = [...photos, { label: adminLabel, url: newUrl }];
+    const { data: updateData, error: updateError } = await supabase
+      .from('cleaning_contracts')
+      .update({ admin_photos: newPhotos })
+      .eq('id', PROJECT_ID)
+      .select()
+      .single();
+
+    if (updateError) {
+      console.error(updateError);
+      alert('Error updating row with new admin photo.');
+      return;
+    }
+    contractRow = updateData;
+    renderAdminPhotos(contractRow.admin_photos);
+    // Clear inputs
+    document.getElementById('adminLabel').value = '';
+    document.getElementById('adminFile').value = '';
+  });
+
+  /****************************************************************
+   * 5) Before Photos (Cleaners)
+   ***************************************************************/
+  const beforeUploadBtn = document.getElementById('beforeUploadBtn');
+  beforeUploadBtn.addEventListener('click', async () => {
+    if (!contractRow) {
+      alert('Contract row not loaded yet.');
+      return;
+    }
+    const photos = contractRow.before_photos || [];
+    if (photos.length >= MAX_BEFORE_PHOTOS) {
+      alert(`Max before photos (${MAX_BEFORE_PHOTOS}) reached.`);
+      return;
+    }
+
+    const label = document.getElementById('beforeLabel').value.trim();
+    const file = document.getElementById('beforeFile').files[0];
+    if (!label || !file) {
+      alert('Please provide both a label and select a file.');
+      return;
+    }
+
+    // Upload
+    const fileName = `before-${Date.now()}-${file.name}`;
+    const { data, error } = await supabase
+      .storage
+      .from(BUCKET_NAME)
+      .upload(fileName, file);
+
+    if (error) {
+      console.error('Error uploading before photo', error);
+      alert('Upload failed.');
+      return;
+    }
+    const { data: publicData } = supabase
+      .storage
+      .from(BUCKET_NAME)
+      .getPublicUrl(fileName);
+    const newUrl = publicData.publicUrl;
+
+    const newPhotos = [...photos, { label, url: newUrl }];
+    const { data: updateData, error: updateError } = await supabase
+      .from('cleaning_contracts')
+      .update({ before_photos: newPhotos })
+      .eq('id', PROJECT_ID)
+      .select()
+      .single();
+
+    if (updateError) {
+      console.error(updateError);
+      alert('Error updating row with new before photo.');
+      return;
+    }
+    contractRow = updateData;
+    renderBeforePhotos(contractRow.before_photos);
+    document.getElementById('beforeLabel').value = '';
+    document.getElementById('beforeFile').value = '';
+  });
+
+  /****************************************************************
+   * 6) After Photos (Cleaners)
+   ***************************************************************/
+  const afterUploadBtn = document.getElementById('afterUploadBtn');
+  afterUploadBtn.addEventListener('click', async () => {
+    if (!contractRow) {
+      alert('Contract row not loaded yet.');
+      return;
+    }
+    const photos = contractRow.after_photos || [];
+    if (photos.length >= MAX_AFTER_PHOTOS) {
+      alert(`Max after photos (${MAX_AFTER_PHOTOS}) reached.`);
+      return;
+    }
+
+    const label = document.getElementById('afterLabel').value.trim();
+    const file = document.getElementById('afterFile').files[0];
+    if (!label || !file) {
+      alert('Please provide both a label and select a file.');
+      return;
+    }
+
+    // Upload
+    const fileName = `after-${Date.now()}-${file.name}`;
+    const { data, error } = await supabase
+      .storage
+      .from(BUCKET_NAME)
+      .upload(fileName, file);
+
+    if (error) {
+      console.error('Error uploading after photo', error);
+      alert('Upload failed.');
+      return;
+    }
+    const { data: publicData } = supabase
+      .storage
+      .from(BUCKET_NAME)
+      .getPublicUrl(fileName);
+    const newUrl = publicData.publicUrl;
+
+    const newPhotos = [...photos, { label, url: newUrl }];
+    const { data: updateData, error: updateError } = await supabase
+      .from('cleaning_contracts')
+      .update({ after_photos: newPhotos })
+      .eq('id', PROJECT_ID)
+      .select()
+      .single();
+
+    if (updateError) {
+      console.error(updateError);
+      alert('Error updating row with new after photo.');
+      return;
+    }
+    contractRow = updateData;
+    renderAfterPhotos(contractRow.after_photos);
+    document.getElementById('afterLabel').value = '';
+    document.getElementById('afterFile').value = '';
+  });
+
+  /****************************************************************
+   * 7) Signature Canvas
+   ***************************************************************/
   const signatureCanvas = document.getElementById('signature-canvas');
-  const signatureContainer = document.getElementById('signature-container');
   const clearSignatureBtn = document.getElementById('clear-signature');
-  const signatureDataInput = document.getElementById('signatureData');
+  let ctx = signatureCanvas.getContext('2d');
+  let drawing = false;
 
-  let signaturePad, ctx, drawing = false;
-
-  // Resize the canvas to fit container width
   function resizeCanvas() {
-    signatureCanvas.width = signatureContainer.clientWidth;
-    signatureCanvas.height = 200; // fixed height
-    ctx = signatureCanvas.getContext('2d');
-    ctx.fillStyle = "#ffffff"; // White background
+    // For simplicity, keep height 200
+    signatureCanvas.width = signatureCanvas.offsetWidth;
+    signatureCanvas.height = 200;
+    ctx.fillStyle = "#fff";
     ctx.fillRect(0, 0, signatureCanvas.width, signatureCanvas.height);
   }
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
 
-  // Canvas drawing events
   function startDrawing(e) {
     drawing = true;
     ctx.beginPath();
@@ -322,174 +689,69 @@
   signatureCanvas.addEventListener('touchstart', startDrawing, {passive: false});
   signatureCanvas.addEventListener('touchmove', draw, {passive: false});
   signatureCanvas.addEventListener('touchend', stopDrawing, {passive: false});
-  
+
   clearSignatureBtn.addEventListener('click', () => {
     ctx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
-    ctx.fillStyle = "#ffffff";
+    ctx.fillStyle = "#fff";
     ctx.fillRect(0, 0, signatureCanvas.width, signatureCanvas.height);
   });
 
-  /* 
-   * 2) DRAG & DROP IMAGE UPLOAD
-   *    - We'll store one image (Base64) for BEFORE, and one image for AFTER 
-   *      to show the logic. 
-   *    - If you need multiples, replicate or store in arrays.
-   *    - Once uploaded, we disable further changes to that zone.
-   */
-
-  const dropzoneBefore = document.getElementById('dropzoneBefore');
-  const dropzoneAfter = document.getElementById('dropzoneAfter');
-
-  const beforeThumbnails = document.getElementById('beforeThumbnails');
-  const afterThumbnails = document.getElementById('afterThumbnails');
-
-  const beforeImagesInput = document.getElementById('beforeImages');
-  const afterImagesInput = document.getElementById('afterImages');
-
-  let beforeUploaded = false;
-  let afterUploaded = false;
-
-  // Helper: handle drag events
-  function handleDragOver(e) {
-    e.preventDefault();
-    e.currentTarget.classList.add('dragover');
-  }
-  function handleDragLeave(e) {
-    e.currentTarget.classList.remove('dragover');
-  }
-
-  dropzoneBefore.addEventListener('dragover', handleDragOver);
-  dropzoneBefore.addEventListener('dragleave', handleDragLeave);
-  dropzoneAfter.addEventListener('dragover', handleDragOver);
-  dropzoneAfter.addEventListener('dragleave', handleDragLeave);
-
-  dropzoneBefore.addEventListener('drop', (e) => handleDrop(e, 'before'));
-  dropzoneAfter.addEventListener('drop', (e) => handleDrop(e, 'after'));
-
-  // Also handle click to open file dialog
-  dropzoneBefore.addEventListener('click', () => {
-    if(!beforeUploaded) {
-      openFileDialog('before');
-    }
-  });
-  dropzoneAfter.addEventListener('click', () => {
-    if(!afterUploaded) {
-      openFileDialog('after');
-    }
-  });
-
-  function openFileDialog(type) {
-    const fileInput = document.createElement('input');
-    fileInput.type = 'file';
-    fileInput.accept = 'image/*';
-    fileInput.onchange = (e) => {
-      const file = e.target.files[0];
-      if(file) {
-        processFile(file, type);
-      }
-    };
-    fileInput.click();
-  }
-
-  function handleDrop(e, type) {
-    e.preventDefault();
-    e.currentTarget.classList.remove('dragover');
-    if((type === 'before' && beforeUploaded) || (type === 'after' && afterUploaded)) {
-      return; // do nothing if already uploaded
-    }
-    const file = e.dataTransfer.files[0];
-    if(file) {
-      processFile(file, type);
-    }
-  }
-
-  function processFile(file, type) {
-    const labelId = (type === 'before') ? 'beforeLabel' : 'afterLabel';
-    const labelValue = document.getElementById(labelId).value.trim();
-    if(!labelValue) {
-      alert('Please enter a label before uploading the image.');
+  /****************************************************************
+   * 8) Submit Agreement
+   ***************************************************************/
+  const submitAgreementBtn = document.getElementById('submitAgreementBtn');
+  submitAgreementBtn.addEventListener('click', async () => {
+    if (!contractRow) {
+      alert('Contract row not loaded yet.');
       return;
     }
-    const reader = new FileReader();
-    reader.onload = function(evt) {
-      const base64 = evt.target.result; // base64 data
-      displayThumbnail(base64, labelValue, type);
-      storeImageData(base64, labelValue, type);
-      // Mark as uploaded so they can't change
-      if(type === 'before') {
-        beforeUploaded = true;
-      } else {
-        afterUploaded = true;
-      }
-      disableDropzone(type);
-    };
-    reader.readAsDataURL(file);
-  }
 
-  function displayThumbnail(base64, label, type) {
-    const container = (type === 'before') ? beforeThumbnails : afterThumbnails;
+    const ackScope = document.getElementById('ackScope').value;
+    const ackVariation = document.getElementById('ackVariation').value;
+    const ackInduction = document.getElementById('ackInduction').value;
+    const fullName = document.getElementById('fullName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const bankDetails = document.getElementById('bankDetails').value.trim();
 
-    // Create a thumbnail
-    const thumbDiv = document.createElement('div');
-    thumbDiv.classList.add('thumbnail');
+    // Convert signature
+    const sigData = signatureCanvas.toDataURL('image/png');
 
-    // Show label in a title attribute or a small overlay
-    thumbDiv.title = label;
+    // We'll combine the yes/no acknowledgements into a single object or store them in signature field
+    // but let's keep it simple: store them in 'signature' or we store them in text columns (not in schema).
+    // For clarity, let's just store the signature in the signature field, and text fields in columns.
+    // If you want to store the yes/no answers, you might add them as new columns or JSON.
+    // We'll do a partial update:
+    const { data, error } = await supabase
+      .from('cleaning_contracts')
+      .update({
+        full_name: fullName,
+        email: email,
+        phone: phone,
+        address: address,
+        bank_details: bankDetails,
+        signature: sigData
+        // In a real scenario, add columns to store ackScope, ackVariation, ackInduction, etc.
+      })
+      .eq('id', PROJECT_ID)
+      .select()
+      .single();
 
-    const img = document.createElement('img');
-    img.src = base64;
-    thumbDiv.appendChild(img);
-
-    // Clicking the thumbnail => show overlay
-    thumbDiv.addEventListener('click', () => {
-      showOverlay(base64);
-    });
-
-    container.appendChild(thumbDiv);
-  }
-
-  function storeImageData(base64, label, type) {
-    // We'll store them as JSON in a hidden field: [{label:..., data:...}]
-    const hiddenInput = (type === 'before') ? beforeImagesInput : afterImagesInput;
-    let stored = [];
-    if(hiddenInput.value) {
-      try { stored = JSON.parse(hiddenInput.value); } catch(e) {}
+    if (error) {
+      console.error(error);
+      alert('Error submitting agreement. ' + error.message);
+    } else {
+      alert('Agreement submitted successfully!');
+      contractRow = data; // keep updated
     }
-    stored.push({ label, data: base64 });
-    hiddenInput.value = JSON.stringify(stored);
-  }
-
-  function disableDropzone(type) {
-    const dropzone = (type === 'before') ? dropzoneBefore : dropzoneAfter;
-    // We can grey it out or add some text
-    dropzone.style.pointerEvents = 'none';
-    dropzone.style.opacity = '0.5';
-  }
-
-  /*
-   * IMAGE OVERLAY (Full-Size Preview)
-   */
-  const overlay = document.getElementById('overlay');
-  const overlayImg = document.getElementById('overlayImg');
-
-  function showOverlay(base64) {
-    overlayImg.src = base64;
-    overlay.style.display = 'flex';
-  }
-
-  overlay.addEventListener('click', () => {
-    overlay.style.display = 'none';
   });
 
-  /*
-   * 3) On form submission, convert signature canvas to Base64
-   *    and store in hidden field. Then let the form submit.
-   */
-  const mainForm = document.getElementById('mainForm');
-  mainForm.addEventListener('submit', (e) => {
-    // Convert signature to Base64
-    const dataURL = signatureCanvas.toDataURL('image/png');
-    signatureDataInput.value = dataURL;
+  /****************************************************************
+   * 9) Initialize on page load
+   ***************************************************************/
+  window.addEventListener('load', () => {
+    loadContract();
   });
 </script>
 </body>
